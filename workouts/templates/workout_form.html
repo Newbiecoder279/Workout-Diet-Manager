@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{% if object %}Edit Workout{% else %}Create New Workout{% endif %}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <!-- Main Workout Form -->
+    <div class="card mb-4">
+        <div class="card-header">Workout Details</div>
+        <div class="card-body">
+            {{ form.as_p }}
+        </div>
+    </div>
+    
+    <!-- Exercises Formset -->
+    <div class="card mb-4">
+        <div class="card-header">Exercises</div>
+        <div class="card-body">
+            {{ formset.management_form }}
+            
+            <div id="exercises-formset">
+                {% for form in formset %}
+                <div class="exercise-form mb-3 p-3 border rounded">
+                    {{ form.id }}
+                    {% if form.instance.pk %}{{ form.DELETE }}{% endif %}
+                    
+                    <div class="row">
+                        <div class="col-md-3">{{ form.exercise_name.label_tag }}{{ form.exercise_name }}</div>
+                        <div class="col-md-2">{{ form.muscle_group.label_tag }}{{ form.muscle_group }}</div>
+                        <div class="col-md-2">{{ form.equipment_used.label_tag }}{{ form.equipment_used }}</div>
+                        <div class="col-md-1">{{ form.sets.label_tag }}{{ form.sets }}</div>
+                        <div class="col-md-1">{{ form.reps.label_tag }}{{ form.reps }}</div>
+                        <div class="col-md-1">{{ form.weight.label_tag }}{{ form.weight }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <button type="button" id="add-more" class="btn btn-sm btn-outline-secondary mt-2">
+                <i class="fas fa-plus"></i> Add Another Exercise
+            </button>
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Save Workout</button>
+    <a href="{% url 'workout_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const addMoreBtn = document.getElementById('add-more');
+    addMoreBtn.addEventListener('click', function() {
+        const totalForms = document.getElementById('id_exercises-TOTAL_FORMS');
+        const formContainer = document.getElementById('exercises-formset');
+        const currentFormCount = parseInt(totalForms.value);
+
+        // Clone empty form template with correct index
+        const emptyFormTemplate = document.getElementById('exercises-formset').innerHTML;
+        const newFormHtml = emptyFormTemplate.replace(/__prefix__/g, currentFormCount);
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = newFormHtml;
+        const newForm = tempDiv.firstElementChild;
+
+        formContainer.appendChild(newForm);
+        totalForms.value = currentFormCount + 1;
+    });
+});
+</script>
+{% endblock %}

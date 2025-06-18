@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5 text-center">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <h1 class="display-4 fw-bold text-primary mb-4">Welcome to FitTrack</h1>
+      <p class="lead mb-4">
+        Your personal companion to track workouts, monitor nutrition, and stay on top of your fitness goals.
+      </p>
+    {% load static %}
+      <img src="{% static 'images/conquer.jpg' %}" class="img-fluid rounded shadow mb-4" alt="Fitness Image">
+
+      <div class="d-flex justify-content-center gap-3 mt-4">
+        <a href="{% url 'signup' %}" class="btn btn-success btn-lg">Sign Up</a>
+        <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg">Log In</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

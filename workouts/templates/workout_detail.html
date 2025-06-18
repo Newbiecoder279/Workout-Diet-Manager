@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Workout on {{ workout.created_at|date:"M d, Y" }}</h1>
+    <a href="{% url 'workout_edit' workout.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">Details</h5>
+        <p><strong>Duration:</strong> {{ workout.duration }}</p>
+        <p><strong>Notes:</strong> {{ workout.notes|linebreaks }}</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Exercises</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Exercise</th>
+                    <th>Muscle Group</th>
+                    <th>Equipment</th>
+                    <th>Sets</th>
+                    <th>Reps</th>
+                    <th>Weight</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exercise in workout.exercises.all %}
+                <tr>
+                    <td>{{ exercise.exercise_name }}</td>
+                    <td>{{ exercise.get_muscle_group_display }}</td>
+                    <td>{{ exercise.equipment_used }}</td>
+                    <td>{{ exercise.sets }}</td>
+                    <td>{{ exercise.reps }}</td>
+                    <td>{{ exercise.weight|default_if_none:"-" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

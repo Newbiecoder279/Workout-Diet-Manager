@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 class="mb-4 text-primary text-center">Food Log</h2>
+
+      {% if foods %}
+        {% for item in foods %}
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title mb-3 text-success">{{ item.food }}</h5>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Quantity:</strong> {{ item.quantity }} g</li>
+                <li class="list-group-item"><strong>Calories:</strong> {{ item.calories }}</li>
+                <li class="list-group-item"><strong>Protein:</strong> {{ item.protein_g }} g</li>
+                <li class="list-group-item"><strong>Fat:</strong> {{ item.fat_total_g }} g</li>
+                <li class="list-group-item"><strong>Carbs:</strong> {{ item.carbohydrates_total_g }} g</li>
+              </ul>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="alert alert-info text-center">
+          No nutrition data available.
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{% endblock %}
