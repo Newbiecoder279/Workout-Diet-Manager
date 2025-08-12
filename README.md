@@ -29,7 +29,7 @@ Deployment: Compatible with Heroku, Railway, or any WSGI server
 Clone the repository
 
 clone the repository:
-git clone https://github.com/yourusername/workout-diet-manager.git
+git clone https://github.com/Newbiecoder279/Workout-Diet-Manager.git
 cd workout-diet-manager
 
 Install dependencies
