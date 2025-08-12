@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,19 +79,14 @@ WSGI_APPLICATION = 'fitness_tracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-load_dotenv()  # Load variables from .env into os.environ
+#load_dotenv()  # Load variables from .env into os.environ
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("PGDATABASE"),
-        'USER': os.environ.get("PGUSER"),
-        'PASSWORD': os.environ.get("PGPASSWORD"),
-        'HOST': os.environ.get("PGHOST"),
-        'PORT': os.environ.get("PGPORT"),
+        'ENGINE': 'django.db.backends.sqlite3',  # Use SQLite as the database engine
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  # Path to the SQLite database file
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
